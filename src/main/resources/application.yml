@@ -1,0 +1,31 @@
+server:
+  port: 8888  # 服务端口号
+  context-path: /hys # 项目路径
+  tomcat:
+    uri-encoding: UTF-8 #以Tomcat为web容器时的字符编码
+spring:
+  datasource:
+    username: root # 数据库用户名
+    password: root # 数据库用户对应的密码
+    url: jdbc:mysql://123.57.156.32:3306/test1?\
+          useUnicode=true&characterEncoding=utf-8&useSSL=true&autoReconnect=true #数据库链接
+    driver-class-name: com.mysql.jdbc.Driver # 数据库驱动名称
+  jpa:
+    show-sql: true
+  thymeleaf:
+    prefix: classpath:/templates/ # 配置在使用Thymeleaf做页面模板时的前缀，即页面所在路径
+    suffix: .html # 设置在使用Thymeleaf做页面模板时的后缀
+    cache: false # 设置在使用Thymeleaf做页面模板时是否启用缓存
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    content-type: text/html
+  http:
+    encoding:
+      charset: UTF-8 # http请求的字符编码
+    multipart:
+      max-file-size: 10MB # 设置文件上传时单个文件的大小限制
+      max-request-size: 100MB # 设置文件上传时总文件大小限制
+  mvc:
+    static-path-pattern: /** # 设置静态资源的请求路径
+  resources:
+    static-locations: classpath:/static/,classpath:/public/ #指定静态资源的路径
