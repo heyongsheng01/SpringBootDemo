@@ -10,7 +10,6 @@ import com.example.demo.utils.StringUtil;
 public class Test {
 
     public static void main(String[] args) {
-
         System.out.println(StringUtil.formatCurrecy("1.00"));
     }
 

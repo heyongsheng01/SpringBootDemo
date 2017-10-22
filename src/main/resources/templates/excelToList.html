@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>读Excel</title>
+    <style type="text/css">
+        .ace-file-input {
+            position: relative;
+            height: 38px;
+            wline-height: 38px;
+            margin-bottom: 9px
+        }
+
+        .ace-file-input input[type=file] {
+            position: fixed;
+            z-index: -2;
+            opacity: 0;
+            filter: alpha(opacity=0)
+        }
+
+        .ace-file-input .file-label {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background-color: #fff;
+            border: 1px solid #d5d5d5;
+            cursor: pointer;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            -webkit-transition: all .15s;
+            transition: all .15s
+        }
+
+        .ace-file-input .file-label:hover {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-color: #f59942
+        }
+
+        .ace-file-input .file-label:before {
+            display: inline-block;
+            content: attr(data-title);
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding: 0 8px;
+            line-height: 24px;
+            text-align: center;
+            background-color: #6fb3e0;
+            color: #FFF;
+            font-size: 11px;
+            font-weight: bold;
+            border: 2px solid #FFF;
+            border-left-width: 4px;
+            -webkit-transition: all .3s;
+            transition: all .3s
+        }
+
+        .ace-file-input .file-label .file-name {
+            display: inline-block;
+            height: 28px;
+            max-width: 80%;
+            white-space: nowrap;
+            overflow: hidden;
+            line-height: 28px;
+            color: #888;
+            font-size: 13px;
+            vertical-align: top;
+            position: static;
+            padding-left: 10px
+        }
+
+    </style>
+
+</head>
+<body>
+<div style="width: 666px;margin: auto;">
+    <label>读取Excel</label>
+    <form th:action="@{/}" method="post" id="uploadForm" enctype="multipart/form-data">
+        <div class="ace-file-input">
+            <input type="file" id="lefile" name="files">
+            <label class="file-label" data-title="浏览"
+                   onclick="$('input[id=lefile]').click();">
+                <span class="file-name" id="photoCover"></span>
+            </label>
+        </div>
+        <br>
+        <input type="submit" value="提交">
+    </form>
+</div>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
+<script type="text/javascript">
+    $('input[id=lefile]').change(function () {
+        $('#photoCover').html($(this).val());
+    });
+
+    function save() {
+        // 提交表单
+        $.ajax({
+            url: "@{/nloadExcal}",
+            type: "post",
+            data: new FormData(document.getElementById("uploadForm")),
+            processData: false,
+            contentType: false,
+            dataType: "JSON",
+            success: function (data) {
+                console.info(data);
+                console.info("操作成功");
+//                 将myform表单中input元素type为button、submit、reset排除
+//                 将input元素的value设为空值
+//                 如果任何radio/checkbox/select inputs有checked or selected 属性，将其移除
+                $(':input', '#uploadForm').not(':button,:submit,:reset').val('').removeAttr('checked')
+            },
+            error: function (e) {
+                console.info("操作失败");
+                return true;
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

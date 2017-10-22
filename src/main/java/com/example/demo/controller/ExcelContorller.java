@@ -26,6 +26,16 @@ public class ExcelContorller {
         return "loading-animations";
     }
 
+    @RequestMapping("/vue")
+    public String toVue(){
+        return "vue";
+    }
+
+    @RequestMapping("/toexcelToList")
+    public String toexcelToList(){
+        return "excelToList";
+    }
+
     @RequestMapping("/nloadExcal")
     public void nloadExcal(HttpServletResponse response, HttpServletRequest request) {
 
@@ -53,4 +63,5 @@ public class ExcelContorller {
             e.printStackTrace();
         }
     }
+
 }
